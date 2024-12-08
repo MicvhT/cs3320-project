@@ -12,16 +12,17 @@ export default function Checkout() {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
 
-  // Load checked-out books on page load
+  // Fetch the list of checked-out books
+  const loadCheckedOutBooks = async () => {
+    try {
+      const data = await fetchCheckedOutBooks();
+      setCheckedOutBooks(data);
+    } catch (err) {
+      setError("Error fetching checked-out books: " + err.message);
+    }
+  };
+
   useEffect(() => {
-    const loadCheckedOutBooks = async () => {
-      try {
-        const data = await fetchCheckedOutBooks();
-        setCheckedOutBooks(data);
-      } catch (err) {
-        setError("Error fetching checked-out books: " + err.message);
-      }
-    };
     loadCheckedOutBooks();
   }, []);
 
@@ -32,8 +33,10 @@ export default function Checkout() {
         await checkOutBook(book._id, { checked_out_by: name, due_date: new Date().toISOString() });
       }
       setSuccess(true);
+      setError(null);
+      await loadCheckedOutBooks(); // Refresh the list after checkout
     } catch (err) {
-      setError(err.message);
+      setError("Error during checkout: " + err.message);
     }
   };
 
@@ -41,9 +44,10 @@ export default function Checkout() {
   const handleCheckIn = async (id) => {
     try {
       await checkInBook(id);
-      setCheckedOutBooks((prev) => prev.filter((book) => book._id !== id)); // Remove from list after check-in
+      setCheckedOutBooks((prev) => prev.filter((book) => book._id !== id)); // Remove the book from the list
+      setError(null);
     } catch (err) {
-      setError("Error checking in book: " + err.message);
+      setError("Error during check-in: " + err.message);
     }
   };
 
