@@ -9,6 +9,9 @@
     background-color: grey;
     position: fixed;
     top: 0;
+    right: 0;
+    opacity: 1;
+    border-bottom: 3px solid white;
 }
 #heading{
     width: 100vw;

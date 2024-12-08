@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "../components/navbar";
 import { addBook } from "../api";
+import './addBook.css';
 
 export default function AddBook() {
   const [book, setBook] = useState({ title: "", author: "", publisher: "", isbn: "" });
@@ -25,7 +26,7 @@ export default function AddBook() {
     <>
       <Navbar />
       <div>
-        <h1>Add a New Book</h1>
+        <h1 id='addnewbook-heading'>Add New Books Here!</h1>
         <form onSubmit={handleSubmit}>
           <input name="title" placeholder="Title" value={book.title} onChange={handleChange} />
           <input name="author" placeholder="Author" value={book.author} onChange={handleChange} />

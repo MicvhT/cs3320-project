@@ -58,7 +58,7 @@ export default function Checkout() {
     <>
       <Navbar />
       <div className="checkout-container">
-        <h1>Checked-Out Books</h1>
+        <h1 id='checkout-heading'>Checked-Out Books</h1>
         {error && <p className="error">{error}</p>}
         {success && <p>Checkout successful!</p>}
         <div className="grid-container">
