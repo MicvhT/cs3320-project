@@ -109,25 +109,25 @@ const booksRouter = (db) => {
 
     // Update a book
     router.put('/:id', async (req, res) => {
-        try {
-            const { id } = req.params;
-            const updatedData = req.body;
+        const { id } = req.params; // Get the book ID from the route
+        const updates = req.body; // Get the updates from the request body
 
-            const result = await booksCollection.updateOne(
+        try {
+            const result = await db.collection('books').updateOne(
                 { _id: new ObjectId(id) },
-                { $set: updatedData }
+                { $set: updates }
             );
 
-            if (result.modifiedCount === 0) {
-                return res.status(400).json({ error: 'Invalid ID or no changes made' });
+            if (result.matchedCount === 0) {
+                return res.status(404).json({ error: 'Book not found' });
             }
 
             res.json({ message: 'Book updated successfully' });
         } catch (err) {
+            console.error('Error updating book:', err.message);
             res.status(500).json({ error: 'Failed to update book' });
         }
     });
-
     // Retrieve book info
     router.get('/:id', async (req, res) => {
         const { id } = req.params;

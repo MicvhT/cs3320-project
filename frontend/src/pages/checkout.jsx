@@ -37,7 +37,10 @@ export default function Checkout() {
       await loadCheckedOutBooks(); // Refresh the list after checkout
     } catch (err) {
       setError("Error during checkout: " + err.message);
+      
     }
+    // Clear the selected books
+    document.getElementById('checkedout-books').style.display = 'none';
   };
 
   // Handle book check-in
@@ -77,7 +80,7 @@ export default function Checkout() {
           ))}
         </div>
         {selectedBooks && selectedBooks.length > 0 && (
-          <>
+          <div id='checkedout-books'>
             <h2>Books to Checkout</h2>
             {selectedBooks.map((book, index) => (
               <div key={index}>
@@ -97,7 +100,7 @@ export default function Checkout() {
               />
               <button onClick={handleCheckout}>Confirm Checkout</button>
             </div>
-          </>
+          </div>
         )}
       </div>
     </>

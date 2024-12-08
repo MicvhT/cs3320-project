@@ -26,6 +26,13 @@ export default function UpdateBook() {
   };
 
   const handleSubmit = async (e) => {
+    const updatedBook = {
+        title: book.title,
+        author: book.author,
+        publisher: book.publisher,
+        isbn: book.isbn,
+    };
+    console.log(updatedBook);
     e.preventDefault();
     try {
       await updateBook(id, book);
@@ -34,6 +41,16 @@ export default function UpdateBook() {
       setError(err.message);
     }
   };
+
+  // const newbook = () => {
+  //   const book = {
+  //     title: book.title,
+  //     author: book.author,
+  //     publisher: book.publisher,
+  //     isbn: book.isbn,
+  //   };
+  //   console.log(book)
+  // }
 
   return (
     <>
