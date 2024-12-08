@@ -58,9 +58,8 @@ export default function Available() {
               <button onClick={() => toggleSelection(book)}>
                 {selectedBooks.includes(book) ? "Deselect" : "Select"}
               </button>
-              <button onClick={() => navigate(`/update-book/${book._id}`)}>
-                Update
-              </button>
+              <button onClick={() => navigate(`/update-book/${book._id}`)}>Update</button>
+
               <button onClick={() => handleDelete(book._id)}>Delete</button>
             </div>
           </React.Fragment>

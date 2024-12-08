@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Navbar from "../components/navbar";
-import { addBook } from "../api/api";
+import { addBook } from "../api";
 
 export default function AddBook() {
   const [book, setBook] = useState({ title: "", author: "", publisher: "", isbn: "" });

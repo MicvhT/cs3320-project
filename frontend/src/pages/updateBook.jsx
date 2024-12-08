@@ -11,15 +11,15 @@ export default function UpdateBook() {
 
   useEffect(() => {
     const loadBook = async () => {
-      try {
-        const data = await fetchBookById(id);
-        setBook(data);
-      } catch (err) {
-        setError(err.message);
-      }
+        try {
+            const book = await fetchBookById(id);
+            setBook(book);
+        } catch (err) {
+            setError("Error fetching book: " + err.message);
+        }
     };
     loadBook();
-  }, [id]);
+}, [id]);
 
   const handleChange = (e) => {
     setBook({ ...book, [e.target.name]: e.target.value });

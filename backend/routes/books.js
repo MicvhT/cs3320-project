@@ -128,6 +128,25 @@ const booksRouter = (db) => {
         }
     });
 
+    // Retrieve book info
+    router.get('/:id', async (req, res) => {
+        const { id } = req.params;
+        console.log("Received ID:", id); // Log the received ID
+    
+        try {
+            const book = await db.collection('books').findOne({ _id: new ObjectId(id) });
+            if (!book) {
+                console.log("Book not found for ID:", id); // Log if not found
+                return res.status(404).json({ error: 'Book not found' });
+            }
+            res.json(book);
+        } catch (err) {
+            console.error("Error fetching book details:", err.message);
+            res.status(500).json({ error: 'Failed to fetch book details' });
+        }
+    });
+    
+
     // Delete a book
     router.delete('/:id', async (req, res) => {
         try {
